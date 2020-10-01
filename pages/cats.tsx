@@ -1,16 +1,12 @@
 import { useState } from 'react';
 import useSWR from 'swr';
-
-const fetcher = url => fetch(url, {
-  headers: {
-    'x-api-key': process.env.CAT_API_KEY
-  }
-}).then(r => r.json())
+import useCatService from '../hooks/useCatService';
 
 export default function Cats() {
+  const catService = useCatService();
   const [page, setPage] = useState(1);
-  const breeds = (limit, page) => `https://api.thecatapi.com/v1/breeds?limit=${limit}&page=${page}`;
-  const { data, error } = useSWR(breeds(1, page), fetcher);
+  
+  const { data, error } = catService.allBreeds(1, page);
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
