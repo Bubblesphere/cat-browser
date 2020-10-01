@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import useSWR from 'swr';
 import useCatService from '../hooks/useCatService';
 
 export default function Cats() {
@@ -13,7 +12,7 @@ export default function Cats() {
 
   return <ul>
     {data.map(x =>
-      <li>{x.name}</li>
+      <li>{x.name} - {x.life_span}</li>
     )}
     <button onClick={() => setPage(page + 1)}>Next</button>
   </ul>
