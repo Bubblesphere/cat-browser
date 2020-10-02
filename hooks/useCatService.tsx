@@ -1,5 +1,9 @@
 import useSWR, { responseInterface } from "swr";
 
+type Image = {
+  url: string
+}
+
 type Breed = {
   id: string,
   name: string,
@@ -43,12 +47,24 @@ export default function useCatService()  {
       fetcher: fetcher
     };
 
+    const searchImageSchema = {
+      url: (size: "full" | "med" | "small" | "thumb", limit, page, breed_id) => 
+        `https://api.thecatapi.com/v1/images/search?size=${size}&order=DESC&limit=${limit}&page=${page}&breed_id=${breed_id}`,
+      fetcher: fetcher
+    }
+
     const allBreeds = (limit: number, page: number) => useSWR(
       allBreedsSchema.url(limit, page), 
       allBreedsSchema.fetcher
     ) as responseInterface<Breed[], any> 
 
+    const getBreedImages = (breedId: string, limit: number, page: number) => useSWR(
+      searchImageSchema.url("full", limit, page, breedId), 
+      searchImageSchema.fetcher
+    ) as responseInterface<Image[], any> 
+
     return {
-      allBreeds
+      allBreeds,
+      getBreedImages
     }
 }
