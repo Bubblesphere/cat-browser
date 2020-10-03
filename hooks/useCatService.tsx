@@ -58,13 +58,13 @@ export default function useCatService()  {
       allBreedsSchema.fetcher
     ) as responseInterface<Breed[], any> 
 
-    const getBreedImages = (breedId: string, limit: number, page: number) => useSWR(
-      searchImageSchema.url("full", limit, page, breedId), 
+    const getBreed = (breedId: string, limitImage: number, pageImage: number) => useSWR(
+      searchImageSchema.url("full", limitImage, pageImage, breedId), 
       searchImageSchema.fetcher
     ) as responseInterface<Image[], any> 
 
     return {
       allBreeds,
-      getBreedImages
+      getBreed
     }
 }
