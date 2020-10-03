@@ -17,15 +17,15 @@ const fetcher = url => fetch(url, {
   }
 
   export const GetBreedIds = async () => {
-    const breeds: Breed[] = await allBreeds.fetcher(allBreeds.url(30, 1));
+    const breeds: Breed[] = await allBreeds.fetcher(allBreeds.url(80, 0));
 
     return breeds.map(x => x.id);
   }
 
   export const GetBreed = async (breedId: string) => {
     const breed: SearchImage[] = await searchImages.fetcher(searchImages.url("thumb", 1,0, breedId));
-
-    return breed[0].breeds;
+    
+    return breed[0].breeds[0];
   }
   
   export default async (req, res) => {
@@ -36,7 +36,7 @@ const fetcher = url => fetch(url, {
   }
   
   type SearchImage = {
-    breeds: Breed;
+    breeds: Breed[];
     height: number,
     id: string,
     url: string,

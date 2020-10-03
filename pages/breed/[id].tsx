@@ -15,6 +15,7 @@ export default function Breed({breed}) {
 export async function getStaticPaths() {
   const breedIds = await GetBreedIds();
   const paths = breedIds.map((breedId) => `/breed/${breedId}`);
+  console.log(paths);
   return { paths, fallback: false }
 }
 
