@@ -4,6 +4,7 @@ import { Breed, GetBreed, GetBreedIds, GetBreedWithImages } from './api/breeds';
 import styles from '../styles/index.module.scss'
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import BreedAvatar from '../shared/BreedAvatar';
 
 type HomeProps = Array<{
     id: string,
@@ -25,15 +26,12 @@ export default function Home({breeds} : {breeds: HomeProps}) {
     loader={<h4>Loading...</h4>}
     className={styles.grid}
 
+
   >
     {actualBreeds.map(x => 
             <Link key={x.id} href={`breed/${encodeURIComponent(x.id)}`}>
-              <a className={styles.container}>
-                <LazyLoadImage
-                    alt={x.name}
-                    src={x.url} // use normal <img> attributes as props
-                    className={styles.image}/>
-                <span className={styles.name}>{x.name}</span>
+              <a>
+                <BreedAvatar name={x.name} url={x.url} />
               </a>
             </Link>)}
   </InfiniteScroll>

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@500&display=swap');
 
-.breed {
-  font-family: 'Sansita Swashed', cursive;
-  font-weight: 500;
-  font-size: 5em;
+.grid {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-gap: 1rem;
 }
