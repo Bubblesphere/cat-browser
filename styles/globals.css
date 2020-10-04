@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.infinite-scroll-component__outerdiv {
+  width:100%;
+}
