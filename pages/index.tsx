@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { Breed, GetBreed, GetBreedIds, GetBreedWithImages } from './api/breeds';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 type HomeProps = Array<{
     id: string,
@@ -9,18 +11,28 @@ type HomeProps = Array<{
   }>;
 
 export default function Home({breeds} : {breeds: HomeProps}) {
+  const [showCount, setShowCount] = useState(10);
+  const actualBreeds = breeds.slice(0, showCount);
+
   return (
-    <div>      
-      {
-        breeds.map(x => 
+  <InfiniteScroll
+    dataLength={actualBreeds.length} //This is important field to render the next data
+    next={() => setShowCount(showCount + 5)}
+    hasMore={breeds.length > showCount}
+    loader={<h4>Loading...</h4>}
+  >
+    {actualBreeds.map(x => 
           <div>
-            <img src={x.url} width="200" height="200"/>
+            <LazyLoadImage
+              alt={x.name}
+              height={200}
+              src={x.url} // use normal <img> attributes as props
+              width={200} />
             <Link href={`breed/${encodeURIComponent(x.id)}`}>
             {x.name}
             </Link>
-          </div>)
-      }
-    </div>
+          </div>)}
+  </InfiniteScroll>
   ) 
 }
 
