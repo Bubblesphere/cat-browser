@@ -24,9 +24,7 @@ export default function Home({breeds} : {breeds: HomeProps}) {
     next={() => setShowCount(showCount + 5)}
     hasMore={breeds.length > showCount}
     loader={<h4>Loading...</h4>}
-    className={styles.grid}
-
-
+    className={styles.gallery}
   >
     {actualBreeds.map(x => 
             <Link key={x.id} href={`breed/${encodeURIComponent(x.id)}`}>

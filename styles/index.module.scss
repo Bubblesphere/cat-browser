@@ -1,10 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@500&display=swap');
 @import "./_mixins";
 
-.grid {
+.gallery {
+  padding: 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
   grid-gap: 1rem;
+
+  @include sm {
+    padding: 0 1rem;
+  }
 
   @include md {
     grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
@@ -15,14 +20,14 @@
   }
 }
 
-.grid::before {
+.gallery::before {
   content: '';
   width: 0;
   grid-row: 1 / 1;
   grid-column: 1 / 1;
 }
 
-.grid > *:first-child {
+.gallery > *:first-child {
   grid-row: 1 / 1;
   grid-column: 1 / 1;
 }

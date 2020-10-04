@@ -1,7 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@500&display=swap');
-
+@import "./_mixins";
 .grid {
   display: grid;
   grid-template-rows: 1fr;
   grid-gap: 1rem;
+  width:100%;
+
+  @include sm {
+    width: unset;
+  }
+}
+
+.description, .gallery {
+  padding: 0 1rem;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  grid-gap: 1rem;
+
+  @include md {
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  }  
+
+  @include xl {
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  }
+}
+
+.gallery::before {
+  content: '';
+  width: 0;
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+}
+
+.gallery > *:first-child {
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
 }

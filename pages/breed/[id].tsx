@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../../styles/Breed.module.scss'
 import {  GetBreedIds, GetBreedWithImages } from "../api/breeds"
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import BreedAvatar from '../../shared/BreedAvatar';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 type BreedProps = {
   id: string,
@@ -14,25 +15,25 @@ type BreedProps = {
 };
 
 export default function BreedPage({breed} : { breed: BreedProps}) {
+  const [showCount, setShowCount] = useState(10);
+  const urls = breed.url.slice(1, showCount + 1);
+
     return <div className={styles.grid}>
-      
       <BreedAvatar name={breed.name} url={breed.url[0]} />
-      <div>
-        <h1 className={styles.breed}>{breed.name}</h1>
+      <div className={styles.description}>
         <p>{breed.temperament}</p>
         <p>{breed.lifeSpan}</p>
         <p>{breed.origin}</p>
       </div>
-      <div>
-      <LazyLoadImage
-        alt={breed.name}
-        src={breed.url[0]} // use normal <img> attributes as props
-        className={styles.image}
-        width={100}
-        height={100}
-      />
-      </div>
-
+      <InfiniteScroll
+        dataLength={urls.length}
+        next={() => setShowCount(showCount + 5)}
+        hasMore={urls.length > showCount}
+        loader={<h4>Loading...</h4>}
+        className={styles.gallery}
+      >
+        {urls.map(x => <BreedAvatar name="" url={x} />)}
+      </InfiniteScroll>
   </div>
 }
 
