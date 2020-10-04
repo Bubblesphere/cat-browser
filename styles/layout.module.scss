@@ -1,3 +1,5 @@
+@import "./_mixins";
+
 .container {
   min-height: 100vh;
   padding: 0 1rem;
@@ -5,6 +7,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @include sm {
+    padding: 0 5%;
+  }  
+  @include md {
+    padding: 0 10%;
+  }  
+  @include lg {
+    padding: 0 20%;
+  }  
+  @include xl {
+    padding: 0 25%;
+  }
 }
 
 .main {

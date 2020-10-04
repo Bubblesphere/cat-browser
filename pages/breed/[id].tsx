@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/Breed.module.css'
+import styles from '../../styles/Breed.module.scss'
 import { GetBreed, GetBreedIds, Breed } from "../api/breeds"
 
 export default function BreedPage({breed} : { breed: Breed}) {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { Breed, GetBreed, GetBreedIds, GetBreedWithImages } from './api/breeds';
-import styles from '../styles/index.module.css'
+import styles from '../styles/index.module.scss'
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
@@ -28,7 +28,7 @@ export default function Home({breeds} : {breeds: HomeProps}) {
   >
     {actualBreeds.map(x => 
             <Link key={x.id} href={`breed/${encodeURIComponent(x.id)}`}>
-              <a  className={styles.container}>
+              <a className={styles.container}>
                 <LazyLoadImage
                     alt={x.name}
                     src={x.url} // use normal <img> attributes as props

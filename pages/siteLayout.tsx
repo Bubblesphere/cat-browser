@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
-import styles from '../styles/layout.module.css'
+import styles from '../styles/layout.module.scss'
 
 export default function SiteLayout({children}) {
   return (
