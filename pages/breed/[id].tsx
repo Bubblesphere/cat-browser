@@ -4,6 +4,7 @@ import {  GetBreedIds, GetBreedWithImages } from "../api/breeds"
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import BreedAvatar from '../../shared/BreedAvatar';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { CatGallery } from '../../components/catGallery';
 
 type BreedProps = {
   id: string,
@@ -15,25 +16,34 @@ type BreedProps = {
 };
 
 export default function BreedPage({breed} : { breed: BreedProps}) {
-  const [showCount, setShowCount] = useState(10);
+  const [showCount, setShowCount] = useState(5);
   const urls = breed.url.slice(1, showCount + 1);
 
     return <div className={styles.grid}>
-      <BreedAvatar name={breed.name} url={breed.url[0]} />
+      <BreedAvatar name={breed.name} url={breed.url[0]} className={styles.avatar} />
       <div className={styles.description}>
         <p>{breed.temperament}</p>
         <p>{breed.lifeSpan}</p>
         <p>{breed.origin}</p>
       </div>
-      <InfiniteScroll
-        dataLength={urls.length}
-        next={() => setShowCount(showCount + 5)}
-        hasMore={urls.length > showCount}
-        loader={<h4>Loading...</h4>}
-        className={styles.gallery}
-      >
-        {urls.map(x => <BreedAvatar name="" url={x} />)}
-      </InfiniteScroll>
+      <div className={styles.galleryContainer}>
+       <InfiniteScroll
+          dataLength={urls.length}
+          next={() => setShowCount(showCount + 5)}
+          hasMore={breed.url.length > showCount}
+          loader={<h4>Loading...</h4>}
+          className={styles.gallery}
+        >
+          {urls.map(x => 
+              <BreedAvatar 
+                url={x} 
+                name="" 
+              />
+            
+          )}
+        </InfiniteScroll>
+      </div>
+
   </div>
 }
 
@@ -48,7 +58,7 @@ export async function getStaticPaths() {
 
 // This also gets called at build time
 export async function getStaticProps({ params }) {
-  const breedWithImage = await GetBreedWithImages(params.id, "thumb", 20, 0);
+  const breedWithImage = await GetBreedWithImages(params.id, "thumb", 15, 0);
   const breedProps: BreedProps = {
     id: breedWithImage.id,
     name: breedWithImage.name,
