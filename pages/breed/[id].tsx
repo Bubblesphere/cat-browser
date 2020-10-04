@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from '../../styles/Breed.module.css'
-import { GetBreed, GetBreedIds } from "../api/breeds"
+import { GetBreed, GetBreedIds, Breed } from "../api/breeds"
 
-export default function Breed({breed}) {
+export default function BreedPage({breed} : { breed: Breed}) {
     return <div>
       <h1 className={styles.breed}>{breed.name}</h1>
       <p>{breed.temperament}</p>
@@ -14,8 +14,9 @@ export default function Breed({breed}) {
 // This function gets called at build time
 export async function getStaticPaths() {
   const breedIds = await GetBreedIds();
+  
   const paths = breedIds.map((breedId) => `/breed/${breedId}`);
-  console.log(paths);
+
   return { paths, fallback: false }
 }
 

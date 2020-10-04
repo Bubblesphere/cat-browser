@@ -1,23 +1,44 @@
-import React, { useState } from 'react'
-import useCatService from '../hooks/useCatService';
+import React from 'react'
 import Link from 'next/link'
+import { Breed, GetBreed, GetBreedIds, GetBreedWithImages } from './api/breeds';
 
-export default function Home() {
-  const catService = useCatService();  
-  const [page, setPage] = useState(1);
+type HomeProps = Array<{
+    id: string,
+    name: string,
+    url: string
+  }>;
 
-  const { data, error } = catService.allBreeds(10, page);
-    
-  if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
-
+export default function Home({breeds} : {breeds: HomeProps}) {
   return (
     <div>      
-      {data.map(x => {
-        return <Link href={`breed/${encodeURIComponent(x.id)}`}>{x.name}</Link>
-      })}
-      <button onClick={() => setPage(page + 1)}>Next</button>
+      {
+        breeds.map(x => 
+          <div>
+            <img src={x.url} width="200" height="200"/>
+            <Link href={`breed/${encodeURIComponent(x.id)}`}>
+            {x.name}
+            </Link>
+          </div>)
+      }
     </div>
   ) 
 }
+
+// This also gets called at build time
+export async function getStaticProps() {
+  const breedIds = await GetBreedIds();
+
+  const breeds = await Promise.all(breedIds.map(async (x) => {
+    const breedWithImage = await GetBreedWithImages(x, "thumb", 1, 0);
+    return {
+      id: breedWithImage.id,
+      name: breedWithImage.name,
+      url: breedWithImage.images[0].url
+    }
+  }));
+  
+  return { props: { breeds } }
+}
+
+
 
