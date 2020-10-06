@@ -2,20 +2,27 @@
 @import "./_mixins";
 .grid {
   display: grid;
-  grid-template-rows: 1fr;
+  grid-template-rows: auto 1fr 1fr;
   grid-gap: 1rem;
   width:100%;
-
+  min-height: 100vh;
+  height:100%;
 
   @include md {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns:  20% 1fr 20%;
+  }
+  @include lg {
+    grid-template-columns:  25% 1fr 25%;
+  }
+  @include xl {
+    grid-template-columns:  30% 1fr 30%;
   }
 }
 
 .avatar {
+  grid-row: 1 / span 1;
   @include md {
     grid-column: 2 / span 1;
-    grid-row: 1 / span 1;
   }
 }
 

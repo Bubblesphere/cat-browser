@@ -22,6 +22,7 @@ export default function BreedPage({breed} : { breed: BreedProps}) {
     return <div className={styles.grid}>
       <BreedAvatar name={breed.name} url={breed.url[0]} className={styles.avatar} />
       <div className={styles.description}>
+        <h1>{breed.name}</h1>
         <p>{breed.temperament}</p>
         <p>{breed.lifeSpan}</p>
         <p>{breed.origin}</p>
