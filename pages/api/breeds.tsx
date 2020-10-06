@@ -20,7 +20,7 @@ const fetcher = url => fetch(url, {
 
   export const GetBreedIds = async () => {
     const breeds: Breed[] = await allBreeds.fetcher(allBreeds.url(80, 0));
-    
+
     return breeds.map(x => x.id);
   }
 
@@ -71,12 +71,16 @@ const fetcher = url => fetch(url, {
   export type Breed = {
     id: string,
     name: string,
+    description: string,
     temperament: string,
     life_span: string,
     alt_names: string,
     wikipedia_url: string,
     origin: string,
-    weight_imperial: string,
+    weight: {
+      imperial: string,
+      metric: string
+    },
     experimental: number,
     hairless: number,
     natural: number,

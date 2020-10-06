@@ -9,9 +9,12 @@ import { CatGallery } from '../../components/catGallery';
 type BreedProps = {
   id: string,
   name: string,
+  description: string,
   temperament: string,
   lifeSpan: string,
   origin: string,
+  weightImperial: string,
+  weightMetric: string,
   url: string[]
 };
 
@@ -23,9 +26,11 @@ export default function BreedPage({breed} : { breed: BreedProps}) {
       <BreedAvatar name={breed.name} url={breed.url[0]} className={styles.avatar} />
       <div className={styles.description}>
         <h1>{breed.name}</h1>
+        <p>{breed.description}</p>
         <p>{breed.temperament}</p>
-        <p>{breed.lifeSpan}</p>
-        <p>{breed.origin}</p>
+        <p>Lifespan: {breed.lifeSpan}</p>
+        <p>Origin: {breed.origin}</p>
+        <p>Weight: {breed.weightImperial} lbs / {breed.weightMetric} kg</p>
       </div>
       <div className={styles.galleryContainer}>
        <InfiniteScroll
@@ -63,9 +68,12 @@ export async function getStaticProps({ params }) {
   const breedProps: BreedProps = {
     id: breedWithImage.id,
     name: breedWithImage.name,
+    description: breedWithImage.description,
     temperament: breedWithImage.temperament,
     lifeSpan: breedWithImage.life_span,
     origin: breedWithImage.origin,
+    weightImperial: breedWithImage.weight.imperial,
+    weightMetric: breedWithImage.weight.metric,
     url: breedWithImage.images.map(x => x.url)
   }
   return { props: { breed: breedProps } }
