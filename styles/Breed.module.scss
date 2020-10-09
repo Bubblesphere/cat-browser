@@ -2,7 +2,7 @@
 @import "./_mixins";
 .grid {
   display: grid;
-  grid-template-rows: auto 1fr 1fr;
+  grid-template-rows: auto auto 1fr;
   grid-gap: 1rem;
   width:100%;
   min-height: 100vh;
