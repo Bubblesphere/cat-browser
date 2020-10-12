@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import React from 'react';
-import styles from '../styles/layout.module.scss'
+import styles from '../styles/layout.module.scss';
 
-export default function SiteLayout({children}) {
+export default function SiteLayout({ children }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -10,13 +10,9 @@ export default function SiteLayout({children}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        {children}
-      </main>
+      <main className={styles.main}>{children}</main>
 
-      <footer className={styles.footer}>
-      </footer>
+      <footer className={styles.footer}></footer>
     </div>
-  )
+  );
 }
-

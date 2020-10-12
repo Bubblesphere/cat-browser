@@ -2,7 +2,7 @@
   position: relative;
   padding-bottom: 100%;
 }
-  
+
 .image {
   position: absolute;
   width: 100%;
@@ -11,7 +11,7 @@
 }
 
 .name {
-  font-family: 'Sansita Swashed', cursive;
+  font-family: "Sansita Swashed", cursive;
   position: absolute;
   bottom: 16px;
   left: 0;
@@ -19,9 +19,6 @@
   text-align: center;
   color: white;
   font-weight: bold;
-  text-shadow:
-      -1px -1px 0 #000,  
-      1px -1px 0 #000,
-      -1px 1px 0 #000,
-      1px 1px 0 #000;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
