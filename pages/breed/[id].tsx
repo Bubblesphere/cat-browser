@@ -28,22 +28,27 @@ export default function BreedPage({
     .split(',')
     .map((x) => x.toLowerCase().trim());
 
+  const allTemperamentsExceptLast = temperaments
+    .slice(0, temperaments.length - 1)
+    .join(', ');
+  const lastTemperament = temperaments[temperaments.length - 1];
+  const removeSpaces = (text) => text.replace(/ /g, '');
+
   return (
     <div className={styles.grid}>
       <BreedAvatar url={breed.url[0]} className={styles.avatar} />
       <div className={styles.description}>
         <h1>{breed.name}</h1>
         <p>
-          Originally from {breed.origin}, the{breed.name.toLowerCase()} usually
-          weighs {breed.weightMetric.replaceAll(' ', '')} kg (
-          {breed.weightImperial.replaceAll(' ', '')} lbs) and lives for{' '}
-          {breed.lifeSpan.replaceAll(' ', '')} years.
+          Originally from <b>{breed.origin}</b>, the {breed.name.toLowerCase()}{' '}
+          usually weighs <b>{removeSpaces(breed.weightMetric)} kg</b> (
+          <b>{removeSpaces(breed.weightImperial)} lbs</b>) and lives for{' '}
+          <b>{removeSpaces(breed.lifeSpan)} </b>years.
         </p>
         <p>{breed.description}</p>
         <p>
-          The breed is often characterized as{' '}
-          {temperaments.slice(0, temperaments.length - 1).join(', ')} and{' '}
-          {temperaments[temperaments.length - 1]}.
+          The breed is often characterized as {allTemperamentsExceptLast} and{' '}
+          {lastTemperament}.
         </p>
       </div>
       <div className={styles.galleryContainer}>
