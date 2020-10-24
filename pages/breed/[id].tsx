@@ -1,28 +1,12 @@
 import React, { useState } from 'react';
 import styles from '../../styles/Breed.module.scss';
-import { GetBreedIds, GetBreedWithImages } from '../api/breeds';
+import { Breed, getBreedIds, getDetailPageBreedData } from '../api/breeds';
 import BreedAvatar from '../../shared/BreedAvatar';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-type BreedProps = {
-  id: string;
-  name: string;
-  description: string;
-  temperament: string;
-  lifeSpan: string;
-  origin: string;
-  weightImperial: string;
-  weightMetric: string;
-  url: string[];
-};
-
-export default function BreedPage({
-  breed
-}: {
-  breed: BreedProps;
-}): JSX.Element {
+export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
   const [showCount, setShowCount] = useState(5);
-  const urls = breed.url.slice(1, showCount + 1);
+  const urls = breed.imagesId.slice(1, showCount + 1);
 
   const temperaments = breed.temperament
     .split(',')
@@ -36,7 +20,7 @@ export default function BreedPage({
 
   return (
     <div className={styles.grid}>
-      <BreedAvatar url={breed.url[0]} className={styles.avatar} />
+      <BreedAvatar url={breed.imagesId[0]} className={styles.avatar} />
       <div className={styles.description}>
         <h1>{breed.name}</h1>
         <p>
@@ -55,7 +39,7 @@ export default function BreedPage({
         <InfiniteScroll
           dataLength={urls.length}
           next={() => setShowCount(showCount + 5)}
-          hasMore={breed.url.length > showCount}
+          hasMore={breed.imagesId.length > showCount}
           loader={<h4>Loading...</h4>}
           className={styles.gallery}
         >
@@ -70,7 +54,7 @@ export default function BreedPage({
 
 // This function gets called at build time
 export async function getStaticPaths() {
-  const breedIds = await GetBreedIds();
+  const breedIds = await getBreedIds();
 
   const paths = breedIds.map((breedId) => `/breed/${breedId}`);
 
@@ -79,17 +63,6 @@ export async function getStaticPaths() {
 
 // This also gets called at build time
 export async function getStaticProps({ params }) {
-  const breedWithImage = await GetBreedWithImages(params.id, 'thumb', 15, 0);
-  const breedProps: BreedProps = {
-    id: breedWithImage.id,
-    name: breedWithImage.name,
-    description: breedWithImage.description,
-    temperament: breedWithImage.temperament,
-    lifeSpan: breedWithImage.life_span,
-    origin: breedWithImage.origin,
-    weightImperial: breedWithImage.weight.imperial,
-    weightMetric: breedWithImage.weight.metric,
-    url: breedWithImage.images.map((x) => x.url)
-  };
+  const breedProps = await getDetailPageBreedData(params.id);
   return { props: { breed: breedProps } };
 }

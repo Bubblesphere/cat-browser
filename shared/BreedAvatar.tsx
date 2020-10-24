@@ -14,7 +14,11 @@ export default function BreedAvatar({
 }: BreedAvatarProps) {
   return (
     <div className={`${styles.container} ${className ?? ''}`}>
-      <LazyLoadImage alt={name} src={url} className={styles.image} />
+      <LazyLoadImage
+        alt={name}
+        src={`https://cat-browser.azureedge.net/cat-browser/${url}.jpg`}
+        className={styles.image}
+      />
       {name && <span className={styles.name}>{name}</span>}
     </div>
   );

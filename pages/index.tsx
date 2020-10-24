@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { GetBreedIds, GetBreedWithImages } from './api/breeds';
+import { BreedLandingPage, getLandingPageBreedData } from './api/breeds';
 import styles from '../styles/index.module.scss';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import BreedAvatar from '../shared/BreedAvatar';
 
-type HomeProps = Array<{
-  id: string;
-  name: string;
-  url: string;
-  width: number;
-  height: number;
-}>;
-
-export default function Home({ breeds }: { breeds: HomeProps }) {
+export default function Home({ breeds }: { breeds: BreedLandingPage[] }) {
   const [showCount, setShowCount] = useState(20);
   const actualBreeds = breeds.slice(0, showCount);
 
@@ -28,7 +20,7 @@ export default function Home({ breeds }: { breeds: HomeProps }) {
       {actualBreeds.map((x) => (
         <Link key={x.id} href={`breed/${encodeURIComponent(x.id)}`}>
           <a>
-            <BreedAvatar name={x.name} url={x.url} />
+            <BreedAvatar name={x.name} url={x.imageId} />
           </a>
         </Link>
       ))}
@@ -38,20 +30,6 @@ export default function Home({ breeds }: { breeds: HomeProps }) {
 
 // This also gets called at build time
 export async function getStaticProps() {
-  const breedIds = await GetBreedIds();
-
-  const breeds = await Promise.all(
-    breedIds.map(async (x) => {
-      const breedWithImage = await GetBreedWithImages(x, 'thumb', 1, 0);
-      return {
-        id: breedWithImage.id,
-        name: breedWithImage.name,
-        url: breedWithImage.images[0].url,
-        width: breedWithImage.images[0].width,
-        height: breedWithImage.images[0].height
-      };
-    })
-  );
-
+  const breeds = await getLandingPageBreedData();
   return { props: { breeds } };
 }
