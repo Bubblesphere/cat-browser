@@ -20,7 +20,7 @@ export default function Home({ breeds }: { breeds: BreedLandingPage[] }) {
       {actualBreeds.map((x) => (
         <Link key={x.id} href={`breed/${encodeURIComponent(x.id)}`}>
           <a>
-            <BreedAvatar name={x.name} url={x.imageId} />
+            <BreedAvatar alt={x.name} name={x.name} url={x.imageId} />
           </a>
         </Link>
       ))}
