@@ -24,6 +24,7 @@ export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
         alt={breed.name}
         url={breed.imagesId[0]}
         className={styles.avatar}
+        lg={true}
       />
       <div className={styles.description}>
         <h1>{breed.name}</h1>
@@ -48,7 +49,7 @@ export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
           className={styles.gallery}
         >
           {urls.map((x) => (
-            <BreedAvatar alt={breed.name} url={x} key={x} />
+            <BreedAvatar alt={breed.name} url={x} key={x} lg={false} />
           ))}
         </InfiniteScroll>
       </div>
