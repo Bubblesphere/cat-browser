@@ -3,6 +3,7 @@ import styles from '../../styles/Breed.module.scss';
 import { Breed, getBreedIds, getDetailPageBreedData } from '../api/breeds';
 import BreedAvatar from '../../shared/BreedAvatar';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Head from 'next/head';
 
 export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
   const [showCount, setShowCount] = useState(5);
@@ -20,6 +21,19 @@ export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
 
   return (
     <div className={styles.grid}>
+      <Head>
+        <title key="title">Cat Breed Browser - {breed.name}</title>
+        <meta
+          key="meta-description"
+          name="Description"
+          content={`Originally from ${
+            breed.origin
+          }, the ${breed.name.toLowerCase()}
+            usually weighs ${removeSpaces(breed.weightMetric)} kg (
+            ${removeSpaces(breed.weightImperial)} lbs) and lives for
+            ${removeSpaces(breed.lifeSpan)} years.`}
+        />
+      </Head>
       <BreedAvatar
         alt={breed.name}
         url={breed.imagesId[0]}
