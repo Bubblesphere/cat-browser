@@ -17,7 +17,7 @@ export default function Home({ breeds }: { breeds: BreedLandingPage[] }) {
         <meta
           key="meta-description"
           name="Description"
-          content={`Browse over ${actualBreeds.length} cat breeds`}
+          content={`Browse over ${breeds.length} cat breeds`}
         />
       </Head>
       <InfiniteScroll
