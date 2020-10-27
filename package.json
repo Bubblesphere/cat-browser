@@ -17,8 +17,11 @@
     "swr": "^0.3.5"
   },
   "devDependencies": {
+    "@types/next": "^9.0.0",
     "@types/node": "^14.11.2",
-    "@types/react": "^16.9.49",
+    "@types/react": "^16.9.53",
+    "@types/react-infinite-scroll-component": "^4.2.5",
+    "@types/react-lazy-load-image-component": "^1.5.1",
     "@typescript-eslint/eslint-plugin": "^4.4.0",
     "@typescript-eslint/parser": "^4.4.0",
     "cross-env": "^7.0.2",
