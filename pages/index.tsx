@@ -20,6 +20,7 @@ export default function Home({ breeds }: { breeds: BreedLandingPage[] }) {
           content={`Browse over ${breeds.length} cat breeds`}
         />
       </Head>
+
       <InfiniteScroll
         dataLength={actualBreeds.length} //This is important field to render the next data
         next={() => setShowCount(showCount + 5)}

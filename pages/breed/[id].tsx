@@ -4,9 +4,12 @@ import { Breed, getBreedIds, getDetailPageBreedData } from '../api/breeds';
 import BreedAvatar from '../../shared/BreedAvatar';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Head from 'next/head';
+import CoolLightbox from '../../shared/CoolLightbox';
 
 export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
   const [showCount, setShowCount] = useState(5);
+  const [currentImageIndex, setCurrentIndex] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
   const urls = breed.imagesId.slice(1, showCount + 1);
 
   const temperaments = breed.temperament
@@ -29,11 +32,22 @@ export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
           content={`Originally from ${
             breed.origin
           }, the ${breed.name.toLowerCase()}
-            usually weighs ${removeSpaces(breed.weightMetric)} kg (
-            ${removeSpaces(breed.weightImperial)} lbs) and lives for
+            usually weighs ${removeSpaces(
+              breed.weightMetric
+            )} kg (${removeSpaces(breed.weightImperial)} lbs) and lives for
             ${removeSpaces(breed.lifeSpan)} years.`}
         />
       </Head>
+      <CoolLightbox
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        currentImageIndex={currentImageIndex}
+        setCurrentIndex={setCurrentIndex}
+        images={urls.map((x) => ({
+          src: `https://cat-browser.azureedge.net/lghq/${x}.jpg`,
+          alt: ''
+        }))}
+      />
       <BreedAvatar
         alt={breed.name}
         url={breed.imagesId[0]}
@@ -62,8 +76,17 @@ export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
           loader={<h4>Loading...</h4>}
           className={styles.gallery}
         >
-          {urls.map((x) => (
-            <BreedAvatar alt={breed.name} url={x} key={x} lg={false} />
+          {urls.map((x, i) => (
+            <BreedAvatar
+              alt={breed.name}
+              url={x}
+              key={x}
+              lg={false}
+              onClick={() => {
+                setCurrentIndex(i);
+                setIsOpen(true);
+              }}
+            />
           ))}
         </InfiniteScroll>
       </div>

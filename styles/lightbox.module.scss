@@ -1,0 +1,21 @@
+@import "./_variables";
+
+$containerPadding: 2em;
+
+.closeButton {    
+    position: absolute;
+    top: $containerPadding;
+    right: 2em;
+}
+
+.previousButton {
+    position: absolute; 
+    left: $containerPadding;
+    z-index: 999;
+}
+
+.nextButton {
+    position: absolute; 
+    right: $containerPadding;
+    z-index: 999;
+}
