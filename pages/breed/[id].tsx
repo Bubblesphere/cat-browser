@@ -4,9 +4,12 @@ import { Breed, getBreedIds, getDetailPageBreedData } from '../api/breeds';
 import BreedAvatar from '../../shared/BreedAvatar';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Head from 'next/head';
+import ALightbox from '../../shared/ALightbox';
 
 export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
   const [showCount, setShowCount] = useState(5);
+  const [currentImageIndex, setCurrentIndex] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
   const urls = breed.imagesId.slice(1, showCount + 1);
 
   const temperaments = breed.temperament
@@ -34,6 +37,16 @@ export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
             ${removeSpaces(breed.lifeSpan)} years.`}
         />
       </Head>
+      <ALightbox
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        currentImageIndex={currentImageIndex}
+        setCurrentIndex={setCurrentIndex}
+        images={urls.map((x) => ({
+          src: `https://cat-browser.azureedge.net/lghq/${x}.jpg`,
+          placeholderSrc: `https://cat-browser.azureedge.net/lglq/${x}.jpg`
+        }))}
+      />
       <BreedAvatar
         alt={breed.name}
         url={breed.imagesId[0]}
@@ -62,8 +75,17 @@ export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
           loader={<h4>Loading...</h4>}
           className={styles.gallery}
         >
-          {urls.map((x) => (
-            <BreedAvatar alt={breed.name} url={x} key={x} lg={false} />
+          {urls.map((x, i) => (
+            <BreedAvatar
+              alt={breed.name}
+              url={x}
+              key={x}
+              lg={false}
+              onClick={() => {
+                setCurrentIndex(i);
+                setIsOpen(true);
+              }}
+            />
           ))}
         </InfiniteScroll>
       </div>
