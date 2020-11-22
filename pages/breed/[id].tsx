@@ -4,7 +4,7 @@ import { Breed, getBreedIds, getDetailPageBreedData } from '../api/breeds';
 import BreedAvatar from '../../shared/BreedAvatar';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Head from 'next/head';
-import CoolLightbox from '../../shared/CoolLightbox';
+import ALightbox from '../../shared/ALightbox';
 
 export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
   const [showCount, setShowCount] = useState(5);
@@ -38,14 +38,14 @@ export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
             ${removeSpaces(breed.lifeSpan)} years.`}
         />
       </Head>
-      <CoolLightbox
+      <ALightbox
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         currentImageIndex={currentImageIndex}
         setCurrentIndex={setCurrentIndex}
         images={urls.map((x) => ({
           src: `https://cat-browser.azureedge.net/lghq/${x}.jpg`,
-          alt: ''
+          placeholderSrc: `https://cat-browser.azureedge.net/lglq/${x}.jpg`
         }))}
       />
       <BreedAvatar
