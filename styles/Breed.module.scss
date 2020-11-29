@@ -74,3 +74,12 @@
   grid-row: 1 / 1;
   grid-column: 1 / 1;
 }
+
+.lightboxButton {
+  border: none;
+  padding-left: 0;
+  padding-top: 0;
+  height: 0;
+  padding-right: 0;
+  cursor: pointer;
+}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../styles/Breed.module.scss';
 import { Breed, getBreedIds, getDetailPageBreedData } from '../api/breeds';
-import BreedAvatar from '../../shared/BreedAvatar';
+import BreedAvatar from '../../shared/BreedImage';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Head from 'next/head';
 import ALightbox from '../../shared/ALightbox';
@@ -48,10 +48,10 @@ export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
         }))}
       />
       <BreedAvatar
-        alt={breed.name}
-        url={breed.imagesId[0]}
+        imageId={breed.imagesId[0]}
+        name={breed.name}
+        size="large"
         className={styles.avatar}
-        lg={true}
       />
       <div className={styles.description}>
         <h1>{breed.name}</h1>
@@ -76,16 +76,16 @@ export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
           className={styles.gallery}
         >
           {urls.map((x, i) => (
-            <BreedAvatar
-              alt={breed.name}
-              url={x}
-              key={x}
-              lg={false}
+            <button
               onClick={() => {
                 setCurrentIndex(i);
                 setIsOpen(true);
               }}
-            />
+              className={styles.lightboxButton}
+              key={x}
+            >
+              <BreedAvatar name={breed.name} imageId={x} size="squared" />
+            </button>
           ))}
         </InfiniteScroll>
       </div>

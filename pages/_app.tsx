@@ -1,6 +1,7 @@
 import '../styles/globals.scss';
 import SiteLayout from './siteLayout';
 import 'react-image-lightbox/style.css';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 function MyApp({ Component, pageProps }) {
   return (
