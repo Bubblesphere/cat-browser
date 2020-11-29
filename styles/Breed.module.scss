@@ -74,3 +74,13 @@
   grid-row: 1 / 1;
   grid-column: 1 / 1;
 }
+
+.mainImage {
+  min-width: 300px;
+  min-height: 300px;
+}
+
+.galleryImage {
+  min-width: 150px;
+  min-height: 150px;
+}

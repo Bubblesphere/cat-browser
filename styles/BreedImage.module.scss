@@ -4,7 +4,6 @@
 }
 
 .image {
-  position: absolute;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -21,4 +20,13 @@
   font-weight: bold;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
     1px 1px 0 #000;
+}
+
+.clickableWrapper {
+  border: none;
+  padding-left: 0;
+  padding-top: 0;
+  height: 0;
+  padding-right: 0;
+  cursor: pointer;
 }

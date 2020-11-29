@@ -1,4 +1,4 @@
-import styles from '../styles/BreedAvatar.module.scss';
+import styles from '../styles/BreedImage.module.scss';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 type BreedAvatarProps = {

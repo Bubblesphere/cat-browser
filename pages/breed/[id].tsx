@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styles from '../../styles/Breed.module.scss';
 import { Breed, getBreedIds, getDetailPageBreedData } from '../api/breeds';
-import BreedAvatar from '../../shared/BreedAvatar';
+import BreedImage from '../../shared/BreedImage';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Head from 'next/head';
 
 export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
-  const [showCount, setShowCount] = useState(5);
-  const urls = breed.imagesId.slice(1, showCount + 1);
+  const [showCount, setShowCount] = useState(30);
+  const imagesIds = breed.imagesId.slice(1, showCount + 1);
 
   const temperaments = breed.temperament
     .split(',')
@@ -34,12 +34,14 @@ export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
             ${removeSpaces(breed.lifeSpan)} years.`}
         />
       </Head>
-      <BreedAvatar
-        alt={breed.name}
-        url={breed.imagesId[0]}
-        className={styles.avatar}
-        lg={true}
-      />
+      <div className={styles.avatar}>
+        <BreedImage
+          className={styles.mainImage}
+          imageId={breed.imagesId[0]}
+          name={breed.name}
+          size="large"
+        />
+      </div>
       <div className={styles.description}>
         <h1>{breed.name}</h1>
         <p>
@@ -56,14 +58,20 @@ export default function BreedPage({ breed }: { breed: Breed }): JSX.Element {
       </div>
       <div className={styles.galleryContainer}>
         <InfiniteScroll
-          dataLength={urls.length}
+          dataLength={showCount}
           next={() => setShowCount(showCount + 5)}
           hasMore={breed.imagesId.length > showCount}
           loader={<h4>Loading...</h4>}
           className={styles.gallery}
         >
-          {urls.map((x) => (
-            <BreedAvatar alt={breed.name} url={x} key={x} lg={false} />
+          {imagesIds.map((x) => (
+            <BreedImage
+              className={styles.galleryImage}
+              imageId={x}
+              name={breed.name}
+              key={x}
+              size="squared"
+            />
           ))}
         </InfiniteScroll>
       </div>
